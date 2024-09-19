@@ -38,7 +38,7 @@ const News = (props) => {
 	};
 
 	useEffect(() => {
-		document.title = `${capitalFirstLetter(props.category)} - FM News`;
+		document.title = `${capitalFirstLetter(props.category)} - P News`;
 		if(props.category!="general")
 		{
 
@@ -61,7 +61,7 @@ const News = (props) => {
 
 	return (
 		<>
-			<h1 className="text-center example-big">FM News - Top {capitalFirstLetter(props.category)} Headlines</h1>
+			<h1 className="text-center example-big">P News - Top {capitalFirstLetter(props.category)} Headlines</h1>
 
 			{loading && <Loading />}
 			<InfiniteScroll dataLength={articles.length} next={fetchMoreData} hasMore={articles.length !== totalResults} loader={<Loading />}>

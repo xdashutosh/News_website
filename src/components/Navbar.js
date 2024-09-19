@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaTv } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -21,7 +22,7 @@ const Navbar = () => {
 			<nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-black example" data-bs-theme="dark">
 				<div className="container-fluid">
 					<Link className="navbar-brand" style={{ fontSize: "25px" }} to="/">
-						FM News
+						P News
 					</Link>
 					<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span className="navbar-toggler-icon"></span>
@@ -63,6 +64,11 @@ const Navbar = () => {
 									Technology
 								</Link>
 							</li>
+							<li className="nav-item">
+								<Link className="nav-link " to="/live">
+								<FaTv color="white"/>	Live TV
+								</Link>
+							</li>
 							{auth ?(
 								<li onClick={()=>sessionStorage.clear()} className="nav-item" style={{width:'47vw',textAlign:'end'}}>
 								<button>
@@ -72,7 +78,7 @@ const Navbar = () => {
 									</button>
 						</li>
 							): 
-							<li className="nav-item" style={{width:'47vw',textAlign:'end'}}>
+							<li className="nav-item" style={{width:'40vw',textAlign:'end'}}>
 									<button>
 								<Link className="nav-link " to="/login">
 										Employee Login

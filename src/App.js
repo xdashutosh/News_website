@@ -9,6 +9,7 @@ import { useState } from "react";
 import Login from "./components/Login";
 import NewsPostForm from "./components/NewsPostForm";
 import NewsTable from "./components/NewsTable";
+import Live from "./components/Live";
 
 const App = () => {
 	const pageSize = 9;
@@ -33,6 +34,7 @@ const App = () => {
 					<Route path="/login" element={<Login/>}/>
 					<Route path="/postnews" element={<NewsPostForm/>}/>
 					<Route path="/mynews" element={<NewsTable/>}/>
+					<Route path="/live" element={<Live/>}/>
 				</Routes>
 			</Router>
 		</div>
