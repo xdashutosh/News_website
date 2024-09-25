@@ -62,7 +62,6 @@ const News = (props) => {
 	return (
 		<>
 			<h1 className="text-center example-big">P News - Top {capitalFirstLetter(props.category)} Headlines</h1>
-
 			{loading && <Loading />}
 			<InfiniteScroll dataLength={articles.length} next={fetchMoreData} hasMore={articles.length !== totalResults} loader={<Loading />}>
 				<div className="container">

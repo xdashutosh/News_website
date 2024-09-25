@@ -10,6 +10,11 @@ import Login from "./components/Login";
 import NewsPostForm from "./components/NewsPostForm";
 import NewsTable from "./components/NewsTable";
 import Live from "./components/Live";
+import Latest from "./components/Latest";
+import Register from "./components/Register";
+import EmployeeTable from "./components/EmployeeTable";
+import Payroll from "./components/Payroll";
+
 
 const App = () => {
 	const pageSize = 9;
@@ -17,7 +22,7 @@ const App = () => {
 	const [progress, setProgress] = useState(0);
 
 	return (
-		<div>
+		<>
 			<Router>
 				<Navbar />
 				<div>
@@ -32,12 +37,17 @@ const App = () => {
 					<Route exact path="/sports" element={<News setProgress={setProgress} apiKey={apiKey} key="sports" pageSize={pageSize} country="in" category="sports" />} />
 					<Route exact path="/technology" element={<News setProgress={setProgress} apiKey={apiKey} key="technology" pageSize={pageSize} country="in" category="technology" />} />
 					<Route path="/login" element={<Login/>}/>
+					<Route path="/register" element={<Register/>}/>
 					<Route path="/postnews" element={<NewsPostForm/>}/>
 					<Route path="/mynews" element={<NewsTable/>}/>
 					<Route path="/live" element={<Live/>}/>
+					<Route path="/latest" element={<Latest/>}/>
+					<Route path="/empdata" element={<EmployeeTable/>}/>
+					<Route path="/payroll" element={<Payroll/>}/>
+					
 				</Routes>
 			</Router>
-		</div>
+		</>
 	);
 };
 

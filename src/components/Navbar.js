@@ -1,5 +1,7 @@
+import { Button, HStack, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { FaTv } from "react-icons/fa";
+import { FaTv, FaUser } from "react-icons/fa";
+import { FaChartLine } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -20,7 +22,7 @@ const Navbar = () => {
 	return (
 		<div>
 			<nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-black example" data-bs-theme="dark">
-				<div className="container-fluid">
+				<div className="container-fluid" >
 					<Link className="navbar-brand" style={{ fontSize: "25px" }} to="/">
 						P News
 					</Link>
@@ -28,10 +30,19 @@ const Navbar = () => {
 						<span className="navbar-toggler-icon"></span>
 					</button>
 					<div className="collapse navbar-collapse nav-center " id="navbarSupportedContent">
-						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
+						<ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{width:'100%',display:'flex',justifyContent:'space-between',alignItems:'center'}} >
 							<li className="nav-item ">
 								<Link className="nav-link" aria-current="page" to="/">
 									Home
+								</Link>
+							</li>
+							<li className="nav-item ">
+								<Link className="nav-link" aria-current="page" to="/latest">
+									
+									<HStack >
+								<FaChartLine size={32} color="white"/>	
+								<span >latest</span>
+								</HStack>
 								</Link>
 							</li>
 							<li className="nav-item">
@@ -49,11 +60,7 @@ const Navbar = () => {
 									Health
 								</Link>
 							</li>
-							<li className="nav-item">
-								<Link className="nav-link" to="/science">
-									Science
-								</Link>
-							</li>
+	
 							<li className="nav-item">
 								<Link className="nav-link" to="/sports">
 									Sports
@@ -66,24 +73,42 @@ const Navbar = () => {
 							</li>
 							<li className="nav-item">
 								<Link className="nav-link " to="/live">
-								<FaTv color="white"/>	Live TV
+								<HStack >
+								<FaTv size={32} color="white"/>	
+								<span >Live TV</span>
+								</HStack>
 								</Link>
 							</li>
 							{auth ?(
-								<li onClick={()=>sessionStorage.clear()} className="nav-item" style={{width:'47vw',textAlign:'end'}}>
-								<button>
+								<HStack>
+
+								<li  className="nav-item" >
+								<Button variant={'solid'} colorScheme="blue">
+							<Link className="nav-link " to="/mynews">
+							<HStack>
+								<FaUser/>
+								<span>DashBoard</span>
+							</HStack>
+								
+							</Link>
+									</Button>
+						</li>
+
+						<li onClick={()=>sessionStorage.clear()} className="nav-item" >
+								<Button variant={'solid'} colorScheme="blue">
 							<Link className="nav-link " to="/">
 									Logout
 							</Link>
-									</button>
+									</Button>
 						</li>
+								</HStack>
 							): 
-							<li className="nav-item" style={{width:'40vw',textAlign:'end'}}>
-									<button>
+							<li className="nav-item">
+									<Button variant={'solid'} colorScheme="blue">
 								<Link className="nav-link " to="/login">
 										Employee Login
 								</Link>
-										</button>
+										</Button>
 							</li>
 							}
 						</ul>

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Spinner, Row, Col } from 'react-bootstrap';
 
+
 const Live = () => {
   // Dummy channel data
   const dummyChannels = [
-    { id: 1, title: "Channel 1", isLive: false },
-    { id: 2, title: "Channel 2", isLive: false },
-    { id: 3, title: "Channel 3", isLive: false },
-    { id: 4, title: "Channel 4", isLive: false },
-    { id: 5, title: "Channel 5", isLive: false },
+    { id: 1, title: " Adipurush Controversy LIVE Updates",src:"https://www.youtube.com/embed/ubdDKgOPIXA?si=RdusSmUfeECzSF5R" },
+    { id: 2, title: "ONKAR NEWS LIVE Updates",src:"https://www.youtube.com/embed/cDGIkKtI_S0?si=5sTpkyKXtl7wqybe" },
+    { id: 3, title: "LIVE | Delhi Liquor Policy Case",src:"https://www.youtube.com/embed/FgyuFaaahx0?si=FWHubIyftULWVomA" },
+    { id: 4, title: "Controversy LIVE Updates",src:"https://www.youtube.com/embed/ubdDKgOPIXA?si=RdusSmUfeECzSF5R" },
   ];
 
   // State to track current date and time
@@ -37,21 +37,8 @@ const Live = () => {
             <Card className="mb-4">
               <Card.Body>
                 {/* Video Placeholder */}
-                <div style={{ height: '200px', backgroundColor: '#000', position: 'relative' }}>
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      color: '#fff',
-                    }}
-                  >
-                    {/* Buffering Indicator */}
-                    <Spinner animation="border" role="status" />
-                    <p>Buffering...</p>
-                  </div>
-                </div>
+
+                <iframe width="100%" height="100%" src={channel?.src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 {/* Card Title */}
                 <Card.Title className="mt-3">{channel.title}</Card.Title>
                 {/* Current Date and Time */}
@@ -63,6 +50,8 @@ const Live = () => {
           </Col>
         ))}
       </Row>
+     
+      
     </div>
   );
 };

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Form, Row, Col } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ReactPaginate from 'react-paginate';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { HStack } from '@chakra-ui/react';
 
 const initialNewsData = [
     { id: 1, title: 'First News', likes: 50, dislikes: 5, views: 1000, postedDate: new Date('2024-09-15') },
@@ -39,10 +42,35 @@ const NewsTable = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [newsPerPage] = useState(5);
 
+  const email= sessionStorage.getItem("auth");
   // Handle search by title
   const handleSearchTitle = (e) => {
     setSearchTitle(e.target.value);
   };
+
+  const getforadmin= async()=>{
+    const res= await axios.post("http://localhost:5000/0auth/getalldata",{})
+    setNewsData(res?.data.reverse());
+
+  }
+
+    
+
+  useEffect(()=>{
+    const getdata = async()=>{
+      const res = await axios.post("http://localhost:5000/0auth/getdata",{email})
+      console.log(res?.data);
+      setNewsData(res?.data);
+    }
+    if(email=="admin@gmail.com")
+      {
+        getforadmin();
+      }
+      else{
+      getdata();
+
+    }
+  },[email])
 
   // Handle sorting by date
   const handleSortByDate = () => {
@@ -63,23 +91,38 @@ const NewsTable = () => {
   };
 
   // Filter by title and exact date
-  const filteredNews = newsData.filter((news) => {
-    const matchesTitle = news.title.toLowerCase().includes(searchTitle.toLowerCase());
-    const matchesDate = searchDate ? news.postedDate.toDateString() === searchDate.toDateString() : true;
+  const filteredNews = newsData?.filter((news) => {
+    const matchesTitle = news?.heading?.toLowerCase().includes(searchTitle?.toLowerCase());
+    const matchesDate = searchDate ? news?.newsDate == searchDate : true;
     return matchesTitle && matchesDate;
   });
 
   // Handle Pagination
-  const displayedNews = filteredNews.slice(currentPage * newsPerPage, (currentPage + 1) * newsPerPage);
-  const pageCount = Math.ceil(filteredNews.length / newsPerPage);
+  const displayedNews = filteredNews?.slice(currentPage * newsPerPage, (currentPage + 1) * newsPerPage);
+  const pageCount = Math.ceil(filteredNews?.length / newsPerPage);
 
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
   };
 
+  const handleApprove =async(udata,udate)=>{
+await axios.post("http://localhost:5000/0auth/approve",{"email":udata,"newsDate":udate});
+getforadmin();
+  }
   return (
-    <div className="container mt-4" style={{padding:'5vw'}}>
+    <div className="container mt-4" style={{paddingTop:'5vw'}}>
       <h3>News Posted</h3>
+      <HStack my={4}>
+
+      <Link to={'/postnews'}>
+      <Button>Create News +</Button>
+      </Link>
+
+      <Link to={'/empdata'}>
+      <Button>Employee datasheet </Button>
+      </Link>
+
+      </HStack>
 
       {/* Search and Filters */}
       <Row className="mb-3">
@@ -110,23 +153,21 @@ const NewsTable = () => {
       <Table striped bordered hover responsive>
         <thead>
           <tr>
-            <th>News Title</th>
-            <th>Likes</th>
-            <th>Dislikes</th>
-            <th>Views</th>
+            <th>HeadLine</th>
+            <th>Related Topics</th>
             <th>Posted Date</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {displayedNews.length > 0 ? (
-            displayedNews.map((news) => (
+            displayedNews?.map((news) => (
               <tr key={news.id}>
-                <td>{news.title}</td>
-                <td>{news.likes}</td>
-                <td>{news.dislikes}</td>
-                <td>{news.views}</td>
-                <td>{news.postedDate.toDateString()}</td>
+                <td>{news.heading.slice(0,30)}...</td>
+                <td>{ JSON.parse(news?.points)}</td>
+                <td>{news.newsDate.split("T")[0]}</td>
+                <td><HStack><span>{news.pending?"Pending":"Approved"}</span>{email=="admin@gmail.com"?<Button onClick={()=>handleApprove(news?.email,news?.newsDate)}>Approve</Button>:(<></>)}</HStack> </td>
                 <td>
                   <Button variant="danger" onClick={() => handleDeleteNews(news.id)}>
                     Delete
